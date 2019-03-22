@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+{% load render_bundle from webpack_loader %}
+
+<html lang="en">
+    <head>
+        <title>Django SPA TODO</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Django Vue SPA TODO uses JWT">
+        <meta name="author" content="oleksii.v.velychko@gmail.com">
+
+        <link rel="icon" href="{% static 'spa/assets/images/python.png' %}">
+    </head>
+    <body>
+
+        <div id="app"></div>
+
+        {% comment %}
+        uncomment for production
+        {% render_bundle 'manifest' 'js' 'TODO-SPA' %}
+        {% render_bundle 'vendor' 'js' 'TODO-SPA' %}
+        {% endcomment %}
+
+        {% render_bundle 'app' 'js' 'TODO-SPA' %}
+
+    </body>
+</html>

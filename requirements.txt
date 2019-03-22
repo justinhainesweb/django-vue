@@ -1,0 +1,8 @@
+Django
+django-cors-headers
+django-webpack-loader
+djangorestframework
+djangorestframework-jwt
+gunicorn
+psycopg2-binary
+dj-database-url
