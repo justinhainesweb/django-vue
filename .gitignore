@@ -3,4 +3,3 @@ webpack-stats.json
 venv
 __pycache__
 *.sqlite3
-/static/*
