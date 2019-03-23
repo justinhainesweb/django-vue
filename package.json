@@ -1,8 +1,6 @@
 {
-  "postinstall": {
-    "npm": "npm install --prefix ./project/spa/static/spa"
-  },
   "scripts": {
-    "postinstall": "postinstall"
+    "install": "npm install --prefix ./project/spa/static/spa",
+    "postinstall": "project/spa/static/spa/node_modules/.bin/webpack --config project/spa/static/spa/build/webpack.prod.conf.js "
   }
 }
