@@ -1,6 +1,6 @@
 {
   "scripts": {
     "preinstall" : "npm install --prefix ./project/spa/static/spa",
-    "postinstall": "./project/spa/static/spa/node_modules/.bin/webpack --config ./project/spa/static/spa/build/webpack.prod.conf.js "
+    "postinstall": "./project/spa/static/spa/node_modules/.bin/webpack --config ./project/spa/static/spa/build/webpack.dev.conf.js "
   }
 }
