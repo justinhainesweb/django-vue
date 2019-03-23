@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-3 col-sm-6 col-12 tp">
-    <div class="task-item" :class="{ expired: isExpiredTask }" :style="'background-color: ' + task.project.color">
+    <div class="task-item" :style="'background-color: ' + task.project.color">
       <div class="row">
         <div class="col-md-10 col-sm-10 col-10">
           <span v-if="!isEdit" @click="isEdit=true">{{ format_final_date }}</span>
@@ -56,18 +56,10 @@ export default {
   data () {
     return {
       isEdit: false,
-      content: ''
+      content: this.task.content
     }
   },
   computed: {
-    isExpiredTask: function () {
-      if (moment(this.task.final_date).format('MM/DD/YYYY') < moment(new Date()).format('MM/DD/YYYY')) {
-        return true
-      } else {
-        return false
-      }
-    },
-
     format_final_date: function () {
       return moment(this.task.final_date).format('MM/DD/YYYY')
     }
