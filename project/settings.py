@@ -140,6 +140,9 @@ WEBPACK_LOADER = {
 ALLOWED_HOSTS = ['127.0.0.1', 'django-spa-todo.herokuapp.com']
 CORS_ORIGIN_WHITELIST = ('127.0.0.1', 'https://django-spa-todo.herokuapp.com', )
 
+INTERNAL_IPS = (
+    '127.0.0.1',
+)
 
 if os.getenv('APP_DJANGO_SPA_TODO_SECRET_KEY', None):
     import dj_database_url
