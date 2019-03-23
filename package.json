@@ -1,5 +1,8 @@
 {
+  "postinstall": {
+    "npm": "npm install --prefix ./project/spa/static/spa"
+  },
   "scripts": {
-    "postinstall": "npm install --prefix ./project/spa/static/spa"
+    "postinstall": "postinstall"
   }
 }
