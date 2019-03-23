@@ -45,6 +45,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -144,14 +148,19 @@ INTERNAL_IPS = (
     '127.0.0.1',
 )
 
-if os.getenv('APP_DJANGO_SPA_TODO_SECRET_KEY', None):
+if os.getenv('APP_DJANGO_VUE_SECRET_KEY', None):
+
     import dj_database_url
+    import django_heroku
+
+    # Activate Django-Heroku.
+    django_heroku.settings(locals())
 
     DEBUG = False
     SITE_ID = 2
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = os.getenv('APP_DJANGO_SPA_TODO_SECRET_KEY')
+    SECRET_KEY = os.getenv('APP_DJANGO_VUE_SECRET_KEY')
 
     DATABASES = {
         'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
