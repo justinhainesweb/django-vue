@@ -137,8 +137,8 @@ WEBPACK_LOADER = {
     },
 }
 
-ALLOWED_HOSTS = ['127.0.0.1', 'django-spa-todo.herokuapp.com']
-CORS_ORIGIN_WHITELIST = ('127.0.0.1', 'https://django-spa-todo.herokuapp.com', )
+ALLOWED_HOSTS = ['127.0.0.1', 'oleksii-velychko-django-vue.herokuapp.com']
+CORS_ORIGIN_WHITELIST = ('127.0.0.1', 'https://oleksii-velychko-django-vue.herokuapp.com', )
 
 INTERNAL_IPS = (
     '127.0.0.1',

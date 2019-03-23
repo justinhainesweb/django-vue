@@ -7,11 +7,11 @@ The front-end side based on amazing reactive library Vue.js.
 The authentication method implements the JSON Web-Token (JWT) by default.
 Project has custom User model which combined with basic authentication.
 
-Please visit the production version on <a href="https://django-vue.herokuapp.com/">https://django-spa-todo.herokuapp.com/</a>
+Please visit the production version on <a href="https://oleksii-velychko-django-vue.herokuapp.com">https://oleksii-velychko-django-vue.herokuapp.com</a>
 
 > test username: django@django.dev
 
-> test password: djangodjango
+> test password: 0123456789
 
 ![alt text](https://raw.githubusercontent.com/oleksii-velychko/django-vue/master/screenshot.png)
 
