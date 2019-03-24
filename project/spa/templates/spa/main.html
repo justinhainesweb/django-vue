@@ -18,10 +18,10 @@
 
         <div id="app"></div>
 
-
+        {% if not debug %}
             {% render_bundle 'manifest' 'js' 'TODO-SPA' %}
             {% render_bundle 'vendor' 'js' 'TODO-SPA' %}
-
+        {% endif %}
 
         {% render_bundle 'app' 'js' 'TODO-SPA' %}
 
