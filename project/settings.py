@@ -45,7 +45,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -127,12 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 WEBPACK_LOADER = {
@@ -143,8 +137,8 @@ WEBPACK_LOADER = {
     },
 }
 
-ALLOWED_HOSTS = ['127.0.0.1', 'oleksii-velychko-django-vue.herokuapp.com']
-CORS_ORIGIN_WHITELIST = ('127.0.0.1', 'https://oleksii-velychko-django-vue.herokuapp.com', )
+ALLOWED_HOSTS = ['127.0.0.1', 'oleksii-velychko.django-vue.pro']
+CORS_ORIGIN_WHITELIST = ('127.0.0.1', 'https://oleksii-velychko.django-vue.pro', )
 
 INTERNAL_IPS = (
     '127.0.0.1',
@@ -153,10 +147,6 @@ INTERNAL_IPS = (
 if os.getenv('APP_DJANGO_VUE_SECRET_KEY', None):
 
     import dj_database_url
-    import django_heroku
-
-    # Activate Django-Heroku.
-    django_heroku.settings(locals())
 
     DEBUG = False
     SITE_ID = 2
