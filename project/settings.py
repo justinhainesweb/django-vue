@@ -127,12 +127,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Extra places for collectstatic to find static files.
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-#)
 
 
 WEBPACK_LOADER = {
@@ -167,6 +161,9 @@ if os.getenv('APP_DJANGO_VUE_SECRET_KEY', None):
     DATABASES = {
         'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
     }
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 else:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
@@ -180,3 +177,5 @@ else:
             'NAME': os.path.join(BASE_DIR, 'todo.sqlite3'),
         }
     }
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
