@@ -137,8 +137,8 @@ WEBPACK_LOADER = {
     },
 }
 
-ALLOWED_HOSTS = ['127.0.0.1', 'oleksii-velychko.django-vue.pro']
-CORS_ORIGIN_WHITELIST = ('127.0.0.1', 'https://oleksii-velychko.django-vue.pro', )
+ALLOWED_HOSTS = ['127.0.0.1', 'oleksii-velychko-django-vue.herokuapp.com']
+CORS_ORIGIN_WHITELIST = ('127.0.0.1', 'https://oleksii-velychko-django-vue.herokuapp.com', )
 
 INTERNAL_IPS = (
     '127.0.0.1',
@@ -147,6 +147,10 @@ INTERNAL_IPS = (
 if os.getenv('APP_DJANGO_VUE_SECRET_KEY', None):
 
     import dj_database_url
+    import django_heroku
+
+    # Activate Django-Heroku.
+    django_heroku.settings(locals())
 
     DEBUG = False
     SITE_ID = 2
