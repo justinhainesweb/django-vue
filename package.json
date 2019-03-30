@@ -1,5 +1,7 @@
 {
   "scripts": {
-    "heroku-prebuild": "npm install --prefix ./project/spa/static/spa && ./project/spa/static/spa/node_modules/.bin/webpack --config ./project/spa/static/spa/build/webpack.prod.conf.js --progress"
+    "install" : "npm install --prefix ./project/spa/static/spa",
+    "heroku-prebuild": "./project/spa/static/spa/node_modules/.bin/webpack --config ./project/spa/static/spa/build/webpack.prod.conf.js --progress",
+    "heroku-postbuild": "python ./manage.py collectstatic --noinput"
   }
 }
