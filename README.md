@@ -7,7 +7,7 @@ The front-end side based on amazing reactive library Vue.js.
 The authentication method implements the JSON Web-Token (JWT) by default.
 Project has custom User model which combined with basic authentication.
 
-Please visit the production version on <a href="https://oleksii-velychko-django-vue.herokuapp.com">https://oleksii-velychko-django-vue.herokuapp.com</a>
+Please visit the production version here <a href="https://oleksii-velychko-django-vue.herokuapp.com">https://oleksii-velychko-django-vue.herokuapp.com</a>
 
 > test username: django@django.dev
 
@@ -15,14 +15,14 @@ Please visit the production version on <a href="https://oleksii-velychko-django-
 
 ![alt text](https://raw.githubusercontent.com/oleksii-velychko/django-vue/master/screenshot.png)
 
-In order to run the project to follow next steps:
+In order to run project to follow next steps:
 
-1. Clone the project and install virtual environment:
+1. Clone project and install virtual environment:
 
     ```
-    virtualenv -p python3 venv
+    virtualenv -p python venv
     source venv/bin/activate
-    pip3 install -r requirements.txt
+    pip install -r requirements.txt
     ```
 
 2. Execute Django commands:
