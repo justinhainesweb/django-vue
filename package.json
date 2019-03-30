@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "install" : "npm install --prefix ./project/spa/static/spa",
+    "heroku-prebuild": "./project/spa/static/spa/node_modules/.bin/webpack --config ./project/spa/static/spa/build/webpack.prod.conf.js --progress"
+  }
+}
