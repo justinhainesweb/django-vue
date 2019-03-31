@@ -1,14 +1,14 @@
 # Django RESTful SPA based on Vue.js and uses JWT
 
-The project demonstrates classic TODO list single-page application.
+The project demonstrates the classic TODO list single-page application.
 
-The front-end side based on amazing reactive library Vue.js.
+Front-end side based on the progressive JavaScript framework named Vue.js.
 
-The authentication method implements the JSON Web-Token (JWT) by default.
+The authentication method implements JSON Web-Token (JWT) by default.
 Project has custom User model which combined with basic authentication.
 
 Please visit the production version here <a href="https://oleksii-velychko-django-vue.herokuapp.com">
-https://oleksii-velychko-django-vue.herokuapp.com</a>
+https://oleksii-velychko-django-vue.herokuapp.com</a> which was deployed on Heroku.
 
 > test username: django@django.dev
 
