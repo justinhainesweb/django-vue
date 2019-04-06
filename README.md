@@ -34,8 +34,11 @@ In order to run project to follow next steps:
     python manage.py createsuperuser (optional)
     ```
 
-3. Then need to build client's SPA:
+3. Then go to ~project/apps/spa/static/spa and build client's SPA:
 
- - Go to ~project/apps/spa/static/spa and execute `npm install`
- - Also from ~project/apps/spa/static/spa and execute `npm run build`
- - Run application by `python manage.py runserver 127.0.0.1:9000`
+   ```
+   npm install
+   npm run build
+   ```
+ 
+Run application by `python manage.py runserver 127.0.0.1:9000`
