@@ -26,7 +26,7 @@ In order to run project to follow next steps:
     pip install -r requirements.txt
     ```
 
-2. Execute Django commands:
+2. Then execute Django commands:
 
     ```
     python manage.py makemigrations
@@ -34,7 +34,7 @@ In order to run project to follow next steps:
     python manage.py createsuperuser (optional)
     ```
 
-3. Then go to ~project/apps/spa/static/spa and build client's SPA:
+3. From ~project/apps/spa/static/spa build client's SPA:
 
    ```
    npm install
