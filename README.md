@@ -18,7 +18,7 @@ https://oleksii-velychko-django-vue.herokuapp.com</a> which was deployed on Hero
 
 In order to run project to follow next steps:
 
-1. Clone project and install virtual environment:
+1. Clone project and install virtual environment into root directory:
 
     ```
     virtualenv -p python venv
@@ -37,6 +37,5 @@ In order to run project to follow next steps:
 3. Then need to build client's SPA:
 
  - Go to ~project/apps/spa/static/spa and execute `npm install`
- - Also from ~project/apps/spa/static/spa and execute execute `npm run build`
- - Then copy files to static directory `python manage.py collectstatic`
- - Run application `python manage.py runserver 127.0.0.1:9000`
+ - Also from ~project/apps/spa/static/spa and execute `npm run build`
+ - Run application by `python manage.py runserver 127.0.0.1:9000`
