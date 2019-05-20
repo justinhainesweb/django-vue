@@ -41,6 +41,10 @@ ul li {
   width: 90%;
 }
 
+.user-greeting {
+  color: $mainColor;
+}
+
 .color-picker-container {
   z-index: 999;
   display: flex;
@@ -309,6 +313,7 @@ ul.CTAs a {
     font-size: 24px;
     box-shadow: $shadow;
     transform: rotate(-2deg);
+    margin-bottom: 20px;
   }
   #navbarSupportedContent {
     .nav-item {
@@ -316,6 +321,9 @@ ul.CTAs a {
         font-weight: bold;
       }
     }
+  }
+  .task-item.my {
+    background-color: #afecff;
   }
   .bttm {
     margin-top: 2em;
@@ -387,3 +395,38 @@ ul.CTAs a {
     transform: rotate(-45deg) translate(1px, -1px);
   }
 }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #f5f5f5;
+}
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+  text-align: center;
+}
+
+code {
+  font-size: 80%;
+}
+
+@media all and (max-width: 600px) {
+	.main-block {
+    .total-count {
+      float: right;
+    }
+    .pagination {
+      margin-bottom: 80px;
+    }
+  }
+}
+

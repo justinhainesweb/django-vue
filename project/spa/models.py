@@ -7,7 +7,7 @@ class Project(models.Model):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, unique=True, help_text="Enter project name")
-    color = models.CharField(max_length=8, default="fff")
+    color = models.CharField(max_length=8, default="F7DC6F")
     created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
