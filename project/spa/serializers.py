@@ -9,8 +9,8 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'color', 'created', 'task_count', )
-        read_only_fields = ('id', 'author', 'created', )
+        fields = ('id', 'name', 'color', 'task_count', )
+        read_only_fields = ('id', 'created_at', 'author', 'created', )
 
     @staticmethod
     def get_task_count(project):
@@ -29,8 +29,8 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id', 'content', 'created', 'final_date', 'done', 'priority', 'project_id', 'project', )
-        read_only_fields = ('project', 'project_id', )
+        fields = ('id', 'content', 'final_date', 'done', 'priority', 'project_id', 'project', )
+        read_only_fields = ('id', 'created_at', 'project', 'project_id', )
 
     @staticmethod
     def get_project(task):
