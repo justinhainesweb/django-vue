@@ -34,11 +34,11 @@ In order to run project to follow next steps:
     python manage.py createsuperuser (optional)
     ```
 
-3. From ~project/apps/spa/static/spa build client's SPA:
+3. From ~project/spa/static/spa build client's SPA:
 
    ```
    npm install
    npm run build
    ```
- 
+
 Run application by `python manage.py runserver 127.0.0.1:9000`
