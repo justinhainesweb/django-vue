@@ -240,6 +240,7 @@ ul.CTAs a {
     #content .add-wrapper .btn {
       border-radius: 10px; }
   #content .task-item {
+    background-color: #F7DC6F;
     font-family: 'Indie Flower', cursive;
     padding: 10px;
     cursor: pointer;
