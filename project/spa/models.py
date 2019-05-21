@@ -3,6 +3,10 @@ from django.utils import timezone
 from django.conf import settings
 
 
+def plus_month():
+    return timezone.now() + timezone.timedelta(days=30)
+
+
 class Project(models.Model):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -24,10 +28,12 @@ class Project(models.Model):
 class Task(models.Model):
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    content = models.TextField(max_length=500, blank=True)
+    content = models.TextField(max_length=500, blank=True, default='''
+        What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    ''')
     done = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
-    final_date = models.DateTimeField(default=timezone.now)
+    final_date = models.DateTimeField(default=plus_month)
     priority = models.IntegerField(default=1)
 
     class Meta:
