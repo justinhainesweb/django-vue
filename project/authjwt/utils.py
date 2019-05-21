@@ -1,22 +1,9 @@
-import re
 import json
 import requests
 from project.settings import EMAIL_VERIFIER_API_KEY
 
 
 class EmailVerifier:
-
-    @staticmethod
-    def _regex_email(email: str):
-        """
-        :param email:
-        :return:
-        """
-        matched = re.match(r'[^@]+@[^@]+\.[^@]+', email)
-        if not matched:
-            return False
-
-        return True
 
     @staticmethod
     def lookup(email: str) -> str:
@@ -38,8 +25,6 @@ class EmailVerifier:
         :param email:
         :return:
         """
-        if not EmailVerifier._regex_email(email):
-            return 'invalid domain'
 
         url = f'https://app.verify-email.org/api/v1/{EMAIL_VERIFIER_API_KEY}/verify/{email}'
 
