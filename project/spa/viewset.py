@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -27,7 +28,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         project_serializer = ProjectSerializer(projects, many=True)
 
         tasks = Task.objects.filter(project__author=author, done=False, final_date__range=[
-                date.today(), date.today() + timedelta(1)  # today
+                timezone.now(), timezone.now() + timedelta(1)  # today
             ]).order_by('priority').order_by('-done', 'final_date')[:100]
 
         task_serializer = TaskSerializer(tasks, many=True)
