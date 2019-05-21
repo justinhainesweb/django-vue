@@ -5,8 +5,6 @@ import django
 
 django.setup()
 
-from django.utils import timezone
-from dateutil.relativedelta import relativedelta
 from configparser import ConfigParser
 from random import randint, choice
 from project.authjwt.models import User
@@ -45,9 +43,7 @@ if __name__ == '__main__':
 
             for t in range(1, randint(1, max_tasks_per_user + 1)):
                 Task.objects.create(
-                    project=project,
-                    final_date=timezone.now() + relativedelta(months=+1),
-                    content='What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+                    project=project
                 )
 
         user_ids.append(user.id)
