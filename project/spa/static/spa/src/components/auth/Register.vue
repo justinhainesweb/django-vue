@@ -7,6 +7,7 @@
     <label for="email">Enter email (will be used as username)</label>
     <input
       v-model='credentials.email'
+      @change="lookup"
       type="email"
       id="email"
       name="email"
@@ -53,13 +54,16 @@
       </ul>
     </p>
 
-    <p class="mt-5 mb-3 text-muted">©{{ new Date().getFullYear() }}</p>
+    <div class="alert alert-warning collapse" id="emailVerifier" role="alert">
+      Email Verifier says: <strong>{{ emailVerifierAnswer }}</strong>
+    </div>
 
   </form>
 </template>
 
 <script>
 import axios from 'axios'
+import $ from 'jquery'
 
 export default {
   name: 'Register',
@@ -70,6 +74,7 @@ export default {
         password: '',
         password1: ''
       },
+      emailVerifierAnswer: '',
       errors: []
     }
   },
@@ -119,6 +124,30 @@ export default {
       if (this.credentials.password.length < 6 || this.credentials.password1.length < 6) {
         this.errors.push('Passwords length too small')
       }
+    },
+
+    lookup () {
+      if (!this.validateEmail(this.credentials.email)) {
+        return
+      }
+
+      axios.post('/auth/lookup/', {'email': this.credentials.email}, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+        if (response.status === 200) {
+          this.emailVerifierAnswer = response.data.result
+          $('#emailVerifier').show().delay(5000).fadeOut('slow')
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    validateEmail (email) {
+      let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
     }
   }
 }

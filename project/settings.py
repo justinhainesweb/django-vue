@@ -103,6 +103,7 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',  # That is required to be sent together with the token (default is JWT).
 }
 
+EMAIL_VERIFIER_API_KEY = os.environ.get('EMAIL_VERIFIER_API_KEY', None)
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

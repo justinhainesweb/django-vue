@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
+from .utils import EmailVerifier
 
 
 @api_view(['GET'])
@@ -16,20 +17,29 @@ def get_current_user(request):
     return Response(serializer.data)
 
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny, ))
+def lookup_email(request):
+    """
+    Lookup the entered email
+    """
+    email = request.data.get('email', None)
+    result = EmailVerifier.lookup(email)
+
+    return Response({'result': result})
+
+
 class UserList(APIView):
 
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny, )
 
     def post(self, request, format=None):
         """
-        Create a new user. It's called 'UserList' because normally we'd have a get
-        method here too, for retrieving a list of all User objects.
-
+        Create a new user
         :param request:
         :param format:
         :return:
         """
-
         serializer = UserSerializerWithToken(data=request.data)
 
         if serializer.is_valid():
