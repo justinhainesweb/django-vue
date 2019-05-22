@@ -9,15 +9,8 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'color', 'task_count', 'shared', 'is_my', )
-        read_only_fields = ('id', 'created_at', 'author', 'created', 'shared', 'is_my', )
-
-    def get_is_my(self, project):
-        """
-        :param project:
-        :return: true is it's my project
-        """
-        return True if project.user == self.context['request'].user else False
+        fields = ('id', 'name', 'color', 'task_count', )
+        read_only_fields = ('id', 'created_at', 'author', 'created', )
 
     @staticmethod
     def get_task_count(project):
@@ -37,16 +30,16 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id', 'content', 'final_date', 'done', 'priority', 'project_id', 'project', 'like_count', 'liked', )
-        read_only_fields = ('id', 'created_at', 'project', 'project_id', 'like_count', 'liked', )
+        fields = ('id', 'content', 'final_date', 'done', 'priority', 'project_id',
+                  'project', 'like_count', 'liked', 'shared', 'is_my', )
+        read_only_fields = ('id', 'created_at', 'project', 'project_id', 'like_count', 'liked', 'shared', 'is_my', )
 
-    @staticmethod
-    def get_like_count(task):
+    def get_is_my(self, task):
         """
-        :param task: self.object
-        :return: integer
+        :param task:
+        :return: true is it's my task
         """
-        return task.like_set.count()
+        return True if task.user == self.context['request'].user else False
 
     def get_liked(self, task):
         """
@@ -58,6 +51,14 @@ class TaskSerializer(serializers.ModelSerializer):
             return liked.id
         except Like.DoesNotExist:
             return False
+
+    @staticmethod
+    def get_like_count(task):
+        """
+        :param task: self.object
+        :return: integer
+        """
+        return task.like_set.count()
 
     @staticmethod
     def get_project(task):

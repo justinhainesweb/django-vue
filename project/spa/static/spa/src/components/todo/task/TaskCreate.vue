@@ -14,6 +14,7 @@
             type="text"
             class="form-control"
             placeholder="Enter description"
+            rows="5"
             required
             v-model="defaultContent"
           ></textarea>

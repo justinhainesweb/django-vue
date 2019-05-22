@@ -12,7 +12,6 @@ class Project(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, unique=True, help_text="Enter project name")
     color = models.CharField(max_length=8, default="#F7DC6F")
-    shared = models.BooleanField(default=False, help_text='Will be hidden for everyone')
     created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -36,6 +35,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     final_date = models.DateTimeField(default=plus_month)
     priority = models.IntegerField(default=1)
+    shared = models.BooleanField(default=False, help_text='Will be hidden for everyone')
 
     class Meta:
         verbose_name = 'Task of project'
