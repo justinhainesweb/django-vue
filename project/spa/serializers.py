@@ -4,7 +4,6 @@ from .models import Project, Task, Like
 
 class ProjectSerializer(serializers.ModelSerializer):
 
-    is_my = serializers.SerializerMethodField()
     task_count = serializers.SerializerMethodField()
 
     class Meta:
@@ -25,6 +24,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     project_id = serializers.IntegerField(write_only=True)
     project = serializers.SerializerMethodField()
+    is_my = serializers.SerializerMethodField()
     like_count = serializers.SerializerMethodField()
     liked = serializers.SerializerMethodField()
 
