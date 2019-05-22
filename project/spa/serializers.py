@@ -1,16 +1,23 @@
 from rest_framework import serializers
-from .models import Project, Task
+from .models import Project, Task, Like
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    """ Serializer for Project model """
 
+    is_my = serializers.SerializerMethodField()
     task_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'color', 'task_count', )
-        read_only_fields = ('id', 'created_at', 'author', 'created', )
+        fields = ('id', 'name', 'color', 'task_count', 'shared', 'is_my', )
+        read_only_fields = ('id', 'created_at', 'author', 'created', 'shared', 'is_my', )
+
+    def get_is_my(self, project):
+        """
+        :param project:
+        :return: true is it's my project
+        """
+        return True if project.user == self.context['request'].user else False
 
     @staticmethod
     def get_task_count(project):
@@ -22,15 +29,35 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    """ Serializer for Task model """
 
     project_id = serializers.IntegerField(write_only=True)
     project = serializers.SerializerMethodField()
+    like_count = serializers.SerializerMethodField()
+    liked = serializers.SerializerMethodField()
 
     class Meta:
         model = Task
-        fields = ('id', 'content', 'final_date', 'done', 'priority', 'project_id', 'project', )
-        read_only_fields = ('id', 'created_at', 'project', 'project_id', )
+        fields = ('id', 'content', 'final_date', 'done', 'priority', 'project_id', 'project', 'like_count', 'liked', )
+        read_only_fields = ('id', 'created_at', 'project', 'project_id', 'like_count', 'liked', )
+
+    @staticmethod
+    def get_like_count(task):
+        """
+        :param task: self.object
+        :return: integer
+        """
+        return task.like_set.count()
+
+    def get_liked(self, task):
+        """
+        :param task:
+        :return:
+        """
+        try:
+            liked = task.like_set.get(user=self.context['request'].user)
+            return liked.id
+        except Like.DoesNotExist:
+            return False
 
     @staticmethod
     def get_project(task):
@@ -39,3 +66,11 @@ class TaskSerializer(serializers.ModelSerializer):
             'name': task.project.name,
             'color': task.project.color,
         }
+
+
+class LikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Like
+        fields = ('user', 'task', )
+        read_only_fields = ('user', 'task', )
