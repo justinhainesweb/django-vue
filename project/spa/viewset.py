@@ -1,11 +1,13 @@
 from datetime import date, timedelta
 from django.utils import timezone
+from django.db.models import Q
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-from .models import Project, Task
-from .serializers import ProjectSerializer, TaskSerializer
+from .models import Project, Task, Like
+from .serializers import ProjectSerializer, TaskSerializer, LikeSerializer
+from .pagination import DefaultResultsSetPagination
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -14,6 +16,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
     permission_classes = (IsAuthenticated, )
+    pagination_class = DefaultResultsSetPagination
 
     def list(self, request, *args, **kwargs):
         """
@@ -22,16 +25,17 @@ class ProjectViewSet(viewsets.ModelViewSet):
         :param kwargs:
         :return:
         """
-        author = self.request.user
 
-        projects = Project.objects.filter(author=author).order_by('-name')
-        project_serializer = ProjectSerializer(projects, many=True)
+        self.queryset = self.queryset.filter(Q(author=self.request.user) | Q(shared=True))
+        project_serializer = ProjectSerializer(self.queryset, many=True, context={'request': request})
 
-        tasks = Task.objects.filter(project__author=author, done=False, final_date__range=[
-                timezone.now(), timezone.now() + timedelta(1)  # today
-            ]).order_by('priority').order_by('-done', 'final_date')[:100]
+        tasks = Task.objects.select_related('project').filter(
+            project__in=self.queryset.only('id'),
+            final_date__range=[
+                timezone.now(), timezone.now() + timedelta(days=30)
+            ]).prefetch_related('like_set').order_by('priority').order_by('-done', 'final_date')
 
-        task_serializer = TaskSerializer(tasks, many=True)
+        task_serializer = TaskSerializer(self.paginate_queryset(tasks), many=True, context={'request': request})
 
         return Response({
             'projects': project_serializer.data,
@@ -69,10 +73,11 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
 class TaskViewSet(viewsets.ModelViewSet):
 
-    queryset = Task.objects.all()
+    queryset = Task.objects.select_related('project').prefetch_related('like_set').all()
     serializer_class = TaskSerializer
     authentication_class = (JSONWebTokenAuthentication, )
     permission_classes = (IsAuthenticated, )
+    pagination_class = DefaultResultsSetPagination
 
     def list(self, request, *args, **kwargs):
         """
@@ -82,28 +87,28 @@ class TaskViewSet(viewsets.ModelViewSet):
         :return:
         """
         author = self.request.user
-        queryset = Task.objects.all()
+        paginate_queryset = self.paginate_queryset(self.queryset)
 
         filter_state = self.request.query_params.get('filter_state', None)
         filter_period = self.request.query_params.get('filter_period', None)
         project_id = int(self.request.query_params.get('project_id', 0))
 
         if project_id:
-            queryset = queryset.filter(project_id=project_id)
+            paginate_queryset = paginate_queryset.filter(project_id=project_id)
         else:
-            queryset = queryset.filter(project__author=author)
+            paginate_queryset = paginate_queryset.filter(project__author=author)
 
         if filter_state == 'completed':
-            queryset = queryset.filter(done=True)
+            paginate_queryset = paginate_queryset.filter(done=True)
         elif filter_state == 'active':
-            queryset = queryset.filter(done=False)
+            paginate_queryset = paginate_queryset.filter(done=False)
 
         if filter_period == 'today':
-            queryset = queryset.filter(final_date__range=[date.today(), date.today() + timedelta(1)])
+            paginate_queryset = paginate_queryset.filter(final_date__range=[date.today(), date.today() + timedelta(1)])
         elif filter_period == 'last_week':
-            queryset = queryset.filter(final_date__range=[date.today(), date.today() + timedelta(7)])
+            paginate_queryset = paginate_queryset.filter(final_date__range=[date.today(), date.today() + timedelta(7)])
 
-        queryset = queryset.order_by('final_date').order_by('priority')
+        paginate_queryset = paginate_queryset.order_by('final_date').order_by('priority')
 
-        task_serializer = TaskSerializer(queryset, many=True)
-        return Response(task_serializer.data)
+        task_serializer = TaskSerializer(paginate_queryset, many=True, context={'request': request})
+        return self.get_paginated_response(task_serializer.data)
