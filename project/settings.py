@@ -98,7 +98,7 @@ JWT_AUTH = {
     'JWT_VERIFY': True,  # It will raise a jwt.DecodeError if the secret is wrong.
     'JWT_ALLOW_REFRESH': True,
     'JWT_VERIFY_EXPIRATION': True,  # Tokens will expire after a period of time (default is five minutes).
-    'JWT_EXPIRATION_DELTA': timedelta(hours=2),
+    'JWT_EXPIRATION_DELTA': timedelta(hours=24),
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',  # That is required to be sent together with the token (default is JWT).
 }
