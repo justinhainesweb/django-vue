@@ -6,6 +6,7 @@ class DefaultResultsSetPagination(PageNumberPagination):
     """
     Override default paginator class
     """
+
     page_size = 12
 
     def get_paginated_response(self, data):
@@ -18,3 +19,14 @@ class DefaultResultsSetPagination(PageNumberPagination):
             'total_pages': self.page.paginator.num_pages,
             'results': data
         })
+
+    def get_paginated_data(self, data):
+        return {
+            'links': {
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'count': self.page.paginator.count,
+            'total_pages': self.page.paginator.num_pages,
+            'results': data
+        }
