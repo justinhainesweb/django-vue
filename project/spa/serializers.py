@@ -68,7 +68,7 @@ class TaskSerializer(serializers.ModelSerializer):
         return {
             'id': task.project.id,
             'name': task.project.name,
-            'color': task.project.color,
+            'color': task.project.color
         }
 
 
