@@ -40,11 +40,25 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-12" v-else>
-    ffkfk
+    <div class="task-item" :style="'background-color: ' + task.project.color">
+      <div class="row">
+        <div class="col-md-9 col-sm-9 col-9">
+            <span>{{ format_final_date }}</span>
+        </div>
+        <div class="col-md-12 col-sm-12 col-12" spellcheck="false">
+          {{ task.content }}
+        </div>
+        <div class="col-md-12 col-sm-12 col-12">
+          <i class="far fa-thumbs-up cursor right" v-if="!task.liked" @click="likeTask">{{ task.like_count }}</i>
+          <i class="fas fa-thumbs-up cursor right" v-else @click="unlikeTask">{{ task.like_count }}</i>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import moment from 'moment'
 import Datepicker from 'vuejs-datepicker'
 
@@ -91,6 +105,8 @@ export default {
       if (moment(this.task.execute_date).format('MM/DD/YYYY') < moment(new Date()).format('MM/DD/YYYY')) {
         alert('Are you sure? Do you want get back to the future?')
         return
+      } else if (!this.content.trim() || 0 === this.content.trim().length) {
+        return false
       }
 
       /* format before will be send */
@@ -110,6 +126,24 @@ export default {
       this.task.done = 1
       this.task.project_id = this.task.project.id
       this.$root.$emit('_vent_edit_task', this.task)
+    },
+
+    likeTask: function () {
+      axios.post(`/api/v1/like/`, {'task_id': this.task.id}).then((response) => {
+        this.task.liked = response.data.like_id
+        ++this.task.like_count
+      }).catch((error) => {
+        alert(error)
+      })
+    },
+
+    unlikeTask: function () {
+      axios.delete(`/api/v1/like/${this.task.liked}/`).then((response) => {
+        this.task.liked = 0
+        --this.task.like_count
+      }).catch((error) => {
+        alert(error)
+      })
     },
 
     customFormatter (date) {
