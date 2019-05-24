@@ -1,8 +1,8 @@
 <template>
-  <div class="col-md-3 col-sm-6 col-12 tp">
+  <div class="col-md-3 col-sm-6 col-12 tp" v-if="is_my">
     <div class="task-item" :style="'background-color: ' + task.project.color">
       <div class="row">
-        <div class="col-md-10 col-sm-10 col-10">
+        <div class="col-md-9 col-sm-9 col-9">
           <span v-if="!isEdit" @click="isEdit=true">{{ format_final_date }}</span>
           <datepicker
             :value="task.final_date"
@@ -13,7 +13,7 @@
             v-if="isEdit"
           ></datepicker>
         </div>
-        <div class="col-md-2 col-sm-2 col-2">
+        <div class="col-md-3 col-sm-3 col-3">
           <i class="fas fa-trash-alt right" @click="deleteTask"></i>
         </div>
       </div>
@@ -39,6 +39,9 @@
       </div>
     </div>
   </div>
+  <div class="col-md-3 col-sm-6 col-12" v-else>
+    ffkfk
+  </div>
 </template>
 
 <script>
@@ -62,6 +65,16 @@ export default {
   computed: {
     format_final_date: function () {
       return moment(this.task.final_date).format('MM/DD/YYYY')
+    },
+    is_my: function () {
+      let projectId = this.task.project.id
+      let matchingValues = this.projects.filter(function (project) { return project.id === projectId })
+
+      if (matchingValues.length) {
+        return matchingValues[0].is_my
+      } else {
+        return false
+      }
     }
   },
   created () {
