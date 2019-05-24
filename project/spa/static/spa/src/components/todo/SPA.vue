@@ -6,14 +6,25 @@
       :getProjects="getProjects"
       :getTasks="getTasks"
       :tasksTodayCount="tasksTodayCount"
-    />
+    ></project-list>
+
     <div id="content">
       <task-list
         :projects="projects"
         :tasks="tasks"
         :getTasks="getTasks"
         :filter="filter"
-      />
+      ></task-list>
+
+      <b-pagination
+        size="md"
+        align="right"
+        :totalRows="totalRows"
+        v-model="currentPage"
+        :perPage="perPage"
+        @input="getTasks(currentPage)">
+      </b-pagination>
+
     </div>
   </div>
 </template>
@@ -33,6 +44,11 @@ export default {
   beforeCreate: function () {
     document.body.classList.remove('auth')
   },
+  computed: {
+    userComputed() {
+      return this.$store.state.authUser
+    }
+  },
   mounted () {
     const jwtToken = this.$store.state.jwt
     axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`
@@ -45,7 +61,11 @@ export default {
       projects: [],
       tasks: [],
       tasksTodayCount: 0,
-      filter: {} // declare filters
+      filter: {}, // declare filters
+      user: {}, // current user
+      currentPage: 1, // pagination option
+      perPage: 12, // pagination option
+      totalRows: 0 // pagination option
     }
   },
   methods: {
@@ -57,7 +77,8 @@ export default {
         this.projects = response.data.projects
 
         if (typeof this.tasks !== 'undefined') {
-          this.tasks = response.data.tasks
+          this.tasks = response.data.tasks.results
+          this.totalRows = response.data.tasks.count
           this.tasksTodayCount = this.tasks.length
         }
 

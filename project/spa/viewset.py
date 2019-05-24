@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from .models import Project, Task, Like
 from .serializers import ProjectSerializer, TaskSerializer, LikeSerializer
-from .pagination import DefaultResultsSetPagination
+from .pagination import DefaultResultSetPagination
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -16,7 +16,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
     permission_classes = (IsAuthenticated, )
-    pagination_class = DefaultResultsSetPagination
+    pagination_class = DefaultResultSetPagination
 
     def list(self, request, *args, **kwargs):
         """
@@ -39,7 +39,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
         return Response({
             'projects': project_serializer.data,
-            'tasks': task_serializer.data,
+            'tasks': self.paginator.get_paginated_data(task_serializer.data),
         })
 
     def perform_create(self, serializer):
@@ -77,7 +77,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     authentication_class = (JSONWebTokenAuthentication, )
     permission_classes = (IsAuthenticated, )
-    pagination_class = DefaultResultsSetPagination
+    pagination_class = DefaultResultSetPagination
 
     def list(self, request, *args, **kwargs):
         """
