@@ -49,8 +49,12 @@
           {{ task.content }}
         </div>
         <div class="col-md-12 col-sm-12 col-12">
-          <i class="far fa-thumbs-up cursor right" v-if="!task.liked" @click="likeTask">{{ task.like_count }}</i>
-          <i class="fas fa-thumbs-up cursor right" v-else @click="unlikeTask">{{ task.like_count }}</i>
+          <i class="far fa-thumbs-up cursor right" v-if="!task.liked" @click="likeTask">
+            <span class="like-counter">{{ task.like_count }}</span>
+          </i>
+          <i class="fas fa-thumbs-up cursor right" v-else @click="unlikeTask">
+            <span class="like-counter">{{ task.like_count }}</span>
+          </i>
         </div>
       </div>
     </div>

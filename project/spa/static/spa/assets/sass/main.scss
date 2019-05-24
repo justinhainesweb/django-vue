@@ -315,6 +315,10 @@ ul.CTAs a {
     box-shadow: $shadow;
     transform: rotate(-2deg);
     margin-bottom: 20px;
+    .like-counter {
+      font-family: 'Indie Flower', cursive;
+      font-size: 20pt;
+    }
   }
   #navbarSupportedContent {
     .nav-item {
