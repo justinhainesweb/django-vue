@@ -112,3 +112,48 @@ class TaskViewSet(viewsets.ModelViewSet):
 
         task_serializer = TaskSerializer(paginate_queryset, many=True, context={'request': request})
         return self.get_paginated_response(task_serializer.data)
+
+
+class LikeViewSet(viewsets.ModelViewSet):
+
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    authentication_classes = (JSONWebTokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+
+    def create(self, request, *args, **kwargs):
+        """
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        like_id = 0
+        post_id = self.request.data.get('post_id', 0)
+        exists = Like.objects.filter(user=self.request.user, post_id=post_id).exists()
+
+        if not exists:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            like_id = self.perform_create(serializer)
+
+        return Response(data={
+            'like_id': like_id
+        }, )
+
+    def perform_create(self, serializer):
+        """
+        :param serializer:
+        :return:
+        """
+        return serializer.save(
+            user=self.request.user,
+            post_id=self.request.data.get('post_id', 0)
+        ).id
+
+    def perform_destroy(self, instance):
+        """
+        :param instance:
+        :return:
+        """
+        instance.delete()

@@ -1,12 +1,13 @@
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
-from .viewset import ProjectViewSet, TaskViewSet
+from .viewset import ProjectViewSet, TaskViewSet, LikeViewSet
 
 
 router = DefaultRouter()
-router.register(r'project', ProjectViewSet)
-router.register(r'task', TaskViewSet)
+router.register(r'project', ProjectViewSet, base_name='Project')
+router.register(r'task', TaskViewSet, base_name='Task')
+router.register(r'like', LikeViewSet, base_name='Like')
 
 
 urlpatterns = [
