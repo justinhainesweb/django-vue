@@ -22,7 +22,7 @@
         :totalRows="totalRows"
         v-model="currentPage"
         :perPage="perPage"
-        @input="getTasks(currentPage)">
+        @input="getTasks(filter, currentPage)">
       </b-pagination>
 
     </div>
@@ -99,9 +99,9 @@ export default {
     /**
      * Fetch(GET) collection of Tasks Models
      */
-    getTasks: function (params) {
-      axios.get('/api/v1/task/', {params: params}).then((response) => {
-        this.tasks = response.data ? response.data : []
+    getTasks: function (params, page = 1) {
+      axios.get(`/api/v1/task/?page=${page}`, {'params': params}).then((response) => {
+        this.tasks = response.data.results ? response.data.results : []
         this.filter.project_id = params.project_id
         this.filter.period = params.filter_period ? params.filter_period : ''
 

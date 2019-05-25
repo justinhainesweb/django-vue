@@ -12,6 +12,10 @@ body.auth {
   color: #000; }
 .modal .btn {
   width: 100%; }
+.modal #shared {
+  color: #000;
+  margin-top: 20px;
+  text-align: center; }
 
 .cursor {
   cursor: pointer; }
@@ -255,8 +259,6 @@ ul.CTAs a {
     font-weight: bold; }
   #content .bttm {
     margin-top: 2em; }
-  #content .tp {
-    margin-bottom: 1.8em; }
 
 #sidebarCollapse {
   width: 40px;

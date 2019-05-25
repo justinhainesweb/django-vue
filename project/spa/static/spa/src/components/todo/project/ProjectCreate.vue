@@ -13,6 +13,10 @@
           v-model="defaultName"
         >
       </div>
+      <div class="col-md-12 col-sm-12 col-12" id="shared">
+        <input type="checkbox" id="checkbox" v-model="defaultShared">
+        <label for="checkbox">It will be used between members?</label>
+      </div>
     </div>
     <br>
     <div class="row">
@@ -38,7 +42,8 @@ export default {
   data () {
     return {
       defaultColor: '#F933FF',
-      defaultName: ''
+      defaultName: '',
+      defaultShared: 0
     }
   },
   methods: {
@@ -48,7 +53,8 @@ export default {
       this.$root.$emit('_vent_close_modal')
     },
     onSubmit: function () {
-      this.$root.$emit('_vent_create_project', {'color': this.defaultColor, 'name': this.defaultName})
+      this.$root.$emit('_vent_create_project', {
+        'color': this.defaultColor, 'name': this.defaultName, 'shared': this.defaultShared})
       this.clearFields()
     }
   },
@@ -59,6 +65,7 @@ export default {
     state (val) {
       this.defaultColor = '#F933FF'
       this.defaultName = ''
+      this.defaultShared = 0
     }
   }
 }

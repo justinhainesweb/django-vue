@@ -29,11 +29,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
         self.queryset = self.queryset.filter(Q(author=self.request.user) | Q(shared=True))
         project_serializer = ProjectSerializer(self.queryset, many=True, context={'request': request})
 
-        tasks = Task.objects.select_related('project').filter(
-            project__in=self.queryset.only('id'),
-            final_date__range=[
-                timezone.now(), timezone.now() + timedelta(days=30)
-            ]).prefetch_related('like_set').order_by('priority').order_by('-done', 'final_date')
+        tasks = Task.objects.select_related('project').filter(project__in=self.queryset.only('id')).\
+            prefetch_related('like_set').order_by('-done', 'final_date')
 
         task_serializer = TaskSerializer(self.paginate_queryset(tasks), many=True, context={'request': request})
 
@@ -48,6 +45,31 @@ class ProjectViewSet(viewsets.ModelViewSet):
         :return:
         """
         serializer.save(author=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        """
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        project_id = self.request.data.get('id', 0)
+        exists = Project.objects.filter(author=self.request.user, id=project_id).exists()
+
+        # if I am the creator
+        if exists:
+            serializer = TaskSerializer(
+                instance=self.get_object(),
+                context={'request': request},
+                data={
+                    'content': self.request.data.get('content'),
+                    'name': self.request.data.get('name')
+                }
+            )
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+
+            return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
         """
@@ -73,7 +95,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
 class TaskViewSet(viewsets.ModelViewSet):
 
-    queryset = Task.objects.select_related('project').prefetch_related('like_set').all()
+    queryset = Task.objects.select_related('project').prefetch_related('like_set').all().order_by('-final_date')
     serializer_class = TaskSerializer
     authentication_class = (JSONWebTokenAuthentication, )
     permission_classes = (IsAuthenticated, )
@@ -86,32 +108,46 @@ class TaskViewSet(viewsets.ModelViewSet):
         :param kwargs:
         :return:
         """
-        author = self.request.user
-        paginate_queryset = self.paginate_queryset(self.queryset)
-
         filter_state = self.request.query_params.get('filter_state', None)
         filter_period = self.request.query_params.get('filter_period', None)
         project_id = int(self.request.query_params.get('project_id', 0))
 
         if project_id:
-            paginate_queryset = paginate_queryset.filter(project_id=project_id)
+            self.queryset = self.queryset.filter(project_id=project_id)
         else:
-            paginate_queryset = paginate_queryset.filter(project__author=author)
+            project_qs = Project.objects.filter(Q(author=self.request.user) | Q(shared=True)).only('id')
+            self.queryset = self.queryset.filter(project__in=project_qs)
 
         if filter_state == 'completed':
-            paginate_queryset = paginate_queryset.filter(done=True)
+            self.queryset = self.queryset.filter(done=True)
         elif filter_state == 'active':
-            paginate_queryset = paginate_queryset.filter(done=False)
+            self.queryset = self.queryset.filter(done=False)
 
         if filter_period == 'today':
-            paginate_queryset = paginate_queryset.filter(final_date__range=[date.today(), date.today() + timedelta(1)])
+            self.queryset = self.queryset.filter(final_date__range=[timezone.now(), timezone.now() + timedelta(1)])
         elif filter_period == 'last_week':
-            paginate_queryset = paginate_queryset.filter(final_date__range=[date.today(), date.today() + timedelta(7)])
+            self.queryset = self.queryset.filter(final_date__range=[timezone.now(), timezone.now() + timedelta(7)])
 
-        paginate_queryset = paginate_queryset.order_by('final_date').order_by('priority')
+        self.queryset = self.queryset.order_by('-done', 'final_date')
 
+        paginate_queryset = self.paginate_queryset(self.queryset)
         task_serializer = TaskSerializer(paginate_queryset, many=True, context={'request': request})
+
         return self.get_paginated_response(task_serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        """
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        post = self.get_object()
+        post_id = post.id
+
+        self.perform_destroy(post)
+
+        return Response(data={'id': post_id}, )
 
 
 class LikeViewSet(viewsets.ModelViewSet):

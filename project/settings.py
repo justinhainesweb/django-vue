@@ -90,6 +90,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'project.spa.pagination.DefaultResultSetPagination',
+    'PAGE_SIZE': 12
 }
 
 AUTH_USER_MODEL = 'authjwt.User'
