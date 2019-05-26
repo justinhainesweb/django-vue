@@ -14,6 +14,7 @@
         :tasks="tasks"
         :getTasks="getTasks"
         :filter="filter"
+        :total_tasks="totalRows"
       ></task-list>
 
       <b-pagination
@@ -43,11 +44,6 @@ export default {
   },
   beforeCreate: function () {
     document.body.classList.remove('auth')
-  },
-  computed: {
-    userComputed() {
-      return this.$store.state.authUser
-    }
   },
   mounted () {
     const jwtToken = this.$store.state.jwt

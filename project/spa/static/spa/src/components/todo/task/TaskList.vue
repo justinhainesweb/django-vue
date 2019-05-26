@@ -34,7 +34,7 @@
       </div>
     </nav>
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-12 title"><h4>{{ filter.title }}</h4></div>
+      <div class="col-md-12 col-sm-12 col-12 title"><h4>{{ filter.title }} ({{ total_tasks }})</h4></div>
     </div>
     <div class="row">
       <div v-if="tasks.length" class="col-md-12 col-sm-12 col-12">
@@ -66,7 +66,8 @@ export default {
     'projects',
     'tasks',
     'filter',
-    'getTasks'
+    'getTasks',
+    'total_tasks'
   ],
   data () {
     return {

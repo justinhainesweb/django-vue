@@ -1,12 +1,13 @@
 <template>
   <nav id="sidebar">
 
-    <div class="sidebar-header">
+    <div class="sidebar-header text-center">
       <router-link to="home">
         <h3><i class="fab fa-python"></i>&nbsp;DjangoVue&nbsp;<i class="fab fa-vuejs"></i></h3>
       </router-link>
       <br>
-      <h6 class="cursor" @click="getProjects">TODO List - Home Page</h6>
+      <h6 class="cursor">Hello {{ userComputed.email }}</h6>
+      <h5 class="cursor" @click="getProjects">Go to Home page</h5>
     </div>
 
     <ul class="list-unstyled components">
@@ -62,7 +63,11 @@ export default {
       modalShow: false
     }
   },
-
+  computed: {
+    userComputed() {
+      return this.$store.state.authUser
+    }
+  },
   /**
    * Listen events
    */
@@ -84,7 +89,6 @@ export default {
     })
   },
   methods: {
-
     /**
      * Create new Project Model
      */
