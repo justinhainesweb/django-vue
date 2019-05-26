@@ -150,7 +150,7 @@ if os.getenv('IS_HEROKU', 0):
     # Activate Django-Heroku.
     django_heroku.settings(locals())
 
-    DEBUG = False
+    DEBUG = True
     SITE_ID = 2
 
     # SECURITY WARNING: keep the secret key used in production secret!
