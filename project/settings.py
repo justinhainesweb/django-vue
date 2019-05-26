@@ -80,7 +80,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# If True, the whitelist will not be used and all origins will be accepted. Defaults to False.
+# Allow hosts only from whitelist
 CORS_ORIGIN_ALLOW_ALL = False
+# If True, cookies will be allowed to be included in cross-site HTTP requests. Defaults to False.
 CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
@@ -135,9 +138,6 @@ WEBPACK_LOADER = {
     },
 }
 
-ALLOWED_HOSTS = ['127.0.0.1', 'oleksii-velychko-django-vue.herokuapp.com']
-CORS_ORIGIN_WHITELIST = ('127.0.0.1', 'https://oleksii-velychko-django-vue.herokuapp.com', )
-
 INTERNAL_IPS = (
     '127.0.0.1',
 )
@@ -161,6 +161,11 @@ if os.getenv('APP_DJANGO_VUE_SECRET_KEY', None):
     }
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+    ALLOWED_HOSTS = ['oleksii-velychko-django-vue.herokuapp.com']
+    CORS_ORIGIN_WHITELIST = ('https://oleksii-velychko-django-vue.herokuapp.com',)
+
+    WEBPACK_LOADER['SPA']['STATS_FILE'] = os.path.join(BASE_DIR, 'webpack-stats.json')
 else:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
@@ -176,3 +181,6 @@ else:
     }
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+    ALLOWED_HOSTS = ['127.0.0.1']
+    CORS_ORIGIN_WHITELIST = ('127.0.0.1', )
