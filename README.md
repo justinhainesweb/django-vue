@@ -1,6 +1,6 @@
 # Django RESTful SPA based on Vue.js and uses JWT
 
-The project demonstrates the classic TODO list single-page application.
+The project demonstrates the classic TODO list single-page application (SPA).
 
 Front-end side based on the progressive JavaScript framework named Vue.js.
 
@@ -18,7 +18,7 @@ https://oleksii-velychko-django-vue.herokuapp.com</a> which was deployed on Hero
 
 In order to run project to follow next steps:
 
-1. Clone project and install virtual environment into root directory:
+1. Clone project and install virtual environment inside root directory:
 
     ```
     virtualenv -p python venv
@@ -42,3 +42,6 @@ In order to run project to follow next steps:
    ```
 
 Run application by `python manage.py runserver 127.0.0.1:9000`
+
+
+P.S. For using the email verifier set EMAIL_VERIFIER_API_KEY variable into environment.
