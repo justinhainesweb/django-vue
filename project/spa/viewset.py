@@ -142,12 +142,12 @@ class TaskViewSet(viewsets.ModelViewSet):
         :param kwargs:
         :return:
         """
-        post = self.get_object()
-        post_id = post.id
+        task = self.get_object()
+        task_id = task.id
 
-        self.perform_destroy(post)
+        self.perform_destroy(task)
 
-        return Response(data={'id': post_id}, )
+        return Response(data={'id': task_id}, )
 
 
 class LikeViewSet(viewsets.ModelViewSet):
@@ -165,8 +165,8 @@ class LikeViewSet(viewsets.ModelViewSet):
         :return:
         """
         like_id = 0
-        post_id = self.request.data.get('post_id', 0)
-        exists = Like.objects.filter(user=self.request.user, post_id=post_id).exists()
+        task_id = self.request.data.get('task_id', 0)
+        exists = Like.objects.filter(user=self.request.user, task_id=task_id).exists()
 
         if not exists:
             serializer = self.get_serializer(data=request.data)
@@ -184,7 +184,7 @@ class LikeViewSet(viewsets.ModelViewSet):
         """
         return serializer.save(
             user=self.request.user,
-            post_id=self.request.data.get('post_id', 0)
+            task_id=self.request.data.get('task_id', 0)
         ).id
 
     def perform_destroy(self, instance):

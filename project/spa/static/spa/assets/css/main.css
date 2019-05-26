@@ -246,6 +246,7 @@ ul.CTAs a {
   #content .task-item {
     background-color: #F7DC6F;
     font-family: 'Indie Flower', cursive;
+    border-radius: 2px;
     padding: 10px;
     cursor: pointer;
     font-size: 24px;

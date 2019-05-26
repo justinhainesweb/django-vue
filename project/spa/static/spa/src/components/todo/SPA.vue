@@ -101,7 +101,9 @@ export default {
      */
     getTasks: function (params, page = 1) {
       axios.get(`/api/v1/task/?page=${page}`, {'params': params}).then((response) => {
+
         this.tasks = response.data.results ? response.data.results : []
+        this.totalRows = response.data.count
         this.filter.project_id = params.project_id
         this.filter.period = params.filter_period ? params.filter_period : ''
 

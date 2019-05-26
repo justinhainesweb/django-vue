@@ -56,9 +56,9 @@ if __name__ == '__main__':
         tasks_ids = list(Task.objects.
                          select_related('project').filter(project__author__in=copy_ids).values_list('id', flat=True))
         for i in range(1, randint(1, max_likes_per_user + 1)):
-            post_id = choice(tasks_ids)  # get random task
-            exists = Like.objects.filter(user_id=user_id, post_id=post_id).exists()
+            task_id = choice(tasks_ids)  # get random task
+            exists = Like.objects.filter(user_id=user_id, task_id=task_id).exists()
             if not exists:
-                Like.objects.create(user_id=user_id, post_id=post_id)
+                Like.objects.create(user_id=user_id, task_id=task_id)
 
     print('Done')
