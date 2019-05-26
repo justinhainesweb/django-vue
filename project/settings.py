@@ -165,7 +165,7 @@ if os.getenv('IS_HEROKU', 0):
     ALLOWED_HOSTS = ['oleksii-velychko-django-vue.herokuapp.com']
     CORS_ORIGIN_WHITELIST = ('https://oleksii-velychko-django-vue.herokuapp.com',)
 
-    WEBPACK_LOADER['SPA']['STATS_FILE'] = os.path.join(BASE_DIR, 'webpack-stats.json')
+    WEBPACK_LOADER['TODO-SPA']['STATS_FILE'] = os.path.join(BASE_DIR, 'webpack-stats.json')
 else:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
