@@ -4,8 +4,8 @@
       <span :style="'background-color: ' + project.color" class="color-item"></span>
       <span class="item-name" :class="{ current: isActive }" @click="showTasks">{{ project.name }}</span>
       <span :style="'color: #ccc'">({{ this.project.task_count }})</span>
-      <i class="far fa-edit" v-if="isEdit" @click="showEditBtn=true"></i>
-      <project-edit :propProject="project" v-if="showEditBtn" />
+      <i class="far fa-edit" v-if="isEdit && this.project.is_my" @click="showEditBtn=true"></i>
+      <project-edit :propProject="project" v-if="showEditBtn && this.project.is_my" />
     </div>
   </li>
 </template>

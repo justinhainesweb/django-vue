@@ -80,18 +80,25 @@ class ProjectViewSet(viewsets.ModelViewSet):
         :return:
         """
         project = self.get_object()
-        incomplete_tasks_count = project.task_set.filter(done=False).count()
+        exists = project.filter(author=self.request.user).exists()
 
-        if not incomplete_tasks_count:
-            self.perform_destroy(project)
-            message = 'The project has been deleted'
+        if exists:
+            incomplete_tasks_count = project.task_set.filter(done=False).count()
+
+            if not incomplete_tasks_count:
+                self.perform_destroy(project)
+                message = 'The project has been deleted'
+            else:
+                message = 'There are incomplete tasks'
+
+            return Response(data={
+                'message': message,
+                'incomplete_tasks_count': incomplete_tasks_count
+            }, )
         else:
-            message = 'There are incomplete tasks'
-
-        return Response(data={
-            'message': message,
-            'incomplete_tasks_count': incomplete_tasks_count
-        }, )
+            return Response(data={
+                'message': 'You can\'t to delete this project'
+            }, )
 
 
 class TaskViewSet(viewsets.ModelViewSet):
