@@ -8,7 +8,7 @@ export default new Vuex.Store({
     token: state => state.jwt
   },
   state: {
-    authUser: {},
+    authUser: localStorage.getItem('user'),
     jwt: localStorage.getItem('token'),
     endpoints: {
       signUp: process.env.HOST_ADDR + '/auth/users/',
@@ -19,6 +19,7 @@ export default new Vuex.Store({
   mutations: {
 
     setAuthUser (state, user) {
+      localStorage.setItem('user', JSON.stringify(user))
       state.authUser = user
     },
 
