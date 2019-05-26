@@ -209,6 +209,10 @@ a, a:hover, a:focus {
   width: 100%;
   align-items: stretch;
   perspective: 1500px;
+  .pagination {
+    margin-bottom: 80px;
+    margin-top: 20px;
+  }
 }
 
 #sidebar {
@@ -431,6 +435,7 @@ code {
     }
     .pagination {
       margin-bottom: 80px;
+      margin-top: 20px;
     }
   }
 }

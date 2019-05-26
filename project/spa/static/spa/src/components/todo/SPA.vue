@@ -27,6 +27,13 @@
       </b-pagination>
 
     </div>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Oleksii Velychko <i class="fab fa-python"></i> Django SPA</span>
+      </div>
+    </footer>
+
   </div>
 </template>
 

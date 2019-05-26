@@ -162,6 +162,9 @@ a, a:hover, a:focus {
   width: 100%;
   align-items: stretch;
   perspective: 1500px; }
+  .wrapper .pagination {
+    margin-bottom: 80px;
+    margin-top: 20px; }
 
 #sidebar {
   min-width: 250px;
@@ -340,6 +343,7 @@ code {
   .main-block .total-count {
     float: right; }
   .main-block .pagination {
-    margin-bottom: 80px; } }
+    margin-bottom: 80px;
+    margin-top: 20px; } }
 
 /*# sourceMappingURL=main.css.map */
