@@ -86,7 +86,7 @@ export default {
         this.filter = {
           project_id: 0, // selected project
           state: '', // it means 'all'
-          period: 'today',
+          period: '',
           title: 'Recent tasks'
         }
       }).catch(error => {
