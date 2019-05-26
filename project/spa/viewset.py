@@ -80,9 +80,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
         :return:
         """
         project = self.get_object()
-        exists = project.filter(author=self.request.user).exists()
 
-        if exists:
+        if project.author == self.request.user:
             incomplete_tasks_count = project.task_set.filter(done=False).count()
 
             if not incomplete_tasks_count:
@@ -97,7 +96,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
             }, )
         else:
             return Response(data={
-                'message': 'You can\'t to delete this project'
+                'message': "You can't to delete this project"
             }, )
 
 

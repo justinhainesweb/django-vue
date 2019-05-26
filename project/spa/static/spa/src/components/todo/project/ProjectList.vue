@@ -129,7 +129,7 @@ export default {
       axios.delete(`/api/v1/project/${projectID}/`).then((response) => {
         alert(response.data.message)
 
-        if (!response.incomplete_tasks_count) {
+        if (parseInt(response.data.incomplete_tasks_count) === 0) {
           let index = this.projects.findIndex(p => parseInt(p.id) === parseInt(projectID))
           this.projects.splice(index, 1)
 
