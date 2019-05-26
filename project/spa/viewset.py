@@ -56,9 +56,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
         project_id = self.request.data.get('id', 0)
         exists = Project.objects.filter(author=self.request.user, id=project_id).exists()
 
-        # if I am the creator
         if exists:
-            serializer = TaskSerializer(
+            serializer = ProjectSerializer(
                 instance=self.get_object(),
                 context={'request': request},
                 data={
@@ -70,6 +69,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
             self.perform_update(serializer)
 
             return Response(serializer.data)
+        else:
+            return Response({})  # if I am not the creator
 
     def destroy(self, request, *args, **kwargs):
         """
