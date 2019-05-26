@@ -38,7 +38,8 @@ if __name__ == '__main__':
         for p in range(1, randint(1, max_projects_per_user + 1)):
             project = Project.objects.create(
                 author=user,
-                name=f'Project #{p} - {i}'
+                name=f'Project #{p} - {i}',
+                shared=True if randint(1, 101) % 2 == 0 else False
             )
 
             for t in range(1, randint(1, max_tasks_per_user + 1)):
