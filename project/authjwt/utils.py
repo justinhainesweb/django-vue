@@ -6,7 +6,7 @@ from project.settings import EMAIL_VERIFIER_API_KEY
 class EmailVerifier:
 
     @staticmethod
-    def lookup(email: str) -> str:
+    def lookup(email: str) -> dict:
         """
         Success response >>
         'email' = {str} 'oleksii.v.velychko@gmail.com'
@@ -30,10 +30,9 @@ class EmailVerifier:
 
         try:
             r = requests.get(url)
-            parsed = json.loads(r.text)
-            if parsed.get('status', 0) == 0:
-                return parsed.get('status_description', 'invalid domain')
+            return json.loads(r.text)
         except (TypeError, IndexError, KeyError, requests.exceptions.HTTPError):
-            return 'invalid domain'
-
-        return parsed.get('status_description', 'valid domain')
+            return {
+                'status': 0,
+                'status_description': 'invalid domain'
+            }

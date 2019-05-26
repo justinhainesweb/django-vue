@@ -26,6 +26,11 @@ def lookup_email(request):
     email = request.data.get('email', None)
     result = EmailVerifier.lookup(email)
 
+    if result.get('status', 0) == 0:
+        result = result.get('status_description', 'invalid domain')
+    else:
+        result = result.get('status_description', 'valid domain')
+
     return Response({'result': result})
 
 

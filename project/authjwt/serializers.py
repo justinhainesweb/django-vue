@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from .models import User as UserJWT
+from .utils import EmailVerifier
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -36,6 +37,13 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         instance = self.Meta.model(**validated_data)
         if password is not None:
             instance.set_password(password)
+
+        email = validated_data.get('email', None)
+        result = EmailVerifier.lookup(email)
+        if result.get('status', 0):
+            # Verify email if it exists
+            instance.verified = True
+
         instance.save()
         return instance
 
