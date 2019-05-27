@@ -31,7 +31,7 @@ In order to run project to follow next steps:
     ```
     python manage.py makemigrations
     python manage.py migrate
-    python manage.py createsuperuser (optional)
+    python manage.py createsuperuser (optionally)
     ```
 
 3. From ~project/spa/static/spa build client's SPA:
@@ -43,6 +43,6 @@ In order to run project to follow next steps:
 
 Run application by `python manage.py runserver 127.0.0.1:9000`
 
-Optional, execute script to fill test data into db `python automated/bot.py`
+Optionally, execute script to fill test data into db `python automated/bot.py`
 
 For using the email verifier add EMAIL_VERIFIER_API_KEY variable to local environment.
