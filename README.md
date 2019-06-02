@@ -34,15 +34,29 @@ In order to run project to follow next steps:
     python manage.py createsuperuser (optionally)
     ```
 
-3. From ~project/spa/static/spa build client's SPA:
+3. From ~project/spa/static/spa build client SPA:
 
    ```
    npm install
    npm run build
    ```
+   
+4. Fill database a seed data (edit load_data.cfg for setting up custom values):
+
+   ```
+   python manage.py load_data
+   ```
+
+Output >>
+> Cleaning database...<br>
+> Got number_of_users: 5<br>
+> Got max_projects_per_user: 5<br>
+> Got max_tasks_per_user: 5<br>
+> Got max_likes_per_user: 5<br>
+> Wait...<br>
+> Done. Created 5 users, 25 projects, 125 tasks.<br>
+
 
 Run application by `python manage.py runserver 127.0.0.1:9000`
 
-Optionally, execute script to fill test data into db `python automated/bot.py`
-
-For using the email verifier add EMAIL_VERIFIER_API_KEY variable to local environment.
+Also, for using the email verifier add EMAIL_VERIFIER_API_KEY variable to local environment.
