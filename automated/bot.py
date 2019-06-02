@@ -42,10 +42,10 @@ if __name__ == '__main__':
                 shared=True if randint(1, 101) % 2 == 0 else False
             )
 
+            tasks = []
             for t in range(1, randint(1, max_tasks_per_user + 1)):
-                Task.objects.create(
-                    project=project
-                )
+                tasks.append(Task(project=project))
+            Task.objects.bulk_create(tasks)
 
         user_ids.append(user.id)
 
