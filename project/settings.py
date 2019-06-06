@@ -142,7 +142,7 @@ INTERNAL_IPS = (
     '127.0.0.1',
 )
 
-if os.getenv('IS_HEROKU', 0):
+if os.getenv('IS_HEROKU', 0) == 1:
 
     import dj_database_url
     import django_heroku
@@ -162,10 +162,8 @@ if os.getenv('IS_HEROKU', 0):
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-    ALLOWED_HOSTS = ['oleksii-velychko-django-vue.herokuapp.com']
-    CORS_ORIGIN_WHITELIST = ('https://oleksii-velychko-django-vue.herokuapp.com',)
-
-    WEBPACK_LOADER['TODO-SPA']['STATS_FILE'] = os.path.join(BASE_DIR, 'webpack-stats.json')
+    ALLOWED_HOSTS = ['alex-django-vue.herokuapp.com']
+    CORS_ORIGIN_WHITELIST = ('https://alex-django-vue.herokuapp.com',)
 else:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
@@ -176,11 +174,13 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'todo.sqlite3'),
+            'NAME': os.path.join(BASE_DIR, 'spa.sqlite3'),
         }
     }
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
     ALLOWED_HOSTS = ['127.0.0.1']
-    CORS_ORIGIN_WHITELIST = ('127.0.0.1', )
+    CORS_ORIGIN_WHITELIST = ('http://127.0.0.1', )
+
+    WEBPACK_LOADER['TODO-SPA']['STATS_FILE'] = os.path.join(BASE_DIR, 'project/spa/static/spa/webpack-stats.json')
