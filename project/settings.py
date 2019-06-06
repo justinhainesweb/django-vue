@@ -142,7 +142,7 @@ INTERNAL_IPS = (
     '127.0.0.1',
 )
 
-if os.getenv('IS_HEROKU', 0) == 1:
+if os.getenv('IS_HEROKU', 0):
 
     import dj_database_url
     import django_heroku
