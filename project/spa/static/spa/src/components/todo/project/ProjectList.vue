@@ -6,7 +6,7 @@
         <h3><i class="fab fa-python"></i>&nbsp;DjangoVue&nbsp;<i class="fab fa-vuejs"></i></h3>
       </router-link>
       <br>
-      <h6 class="cursor">Hello {{ userComputed.email }}</h6>
+      <h6 class="cursor">Hello {{ emailComputed }}</h6>
       <h5 class="cursor" @click="getProjects">Go to Home page</h5>
     </div>
 
@@ -64,8 +64,8 @@ export default {
     }
   },
   computed: {
-    userComputed () {
-      return this.$store.state.authUser
+    emailComputed () {
+      return this.$store.state.authUser.email ? this.$store.state.authUser.email : 'user'
     }
   },
   /**
