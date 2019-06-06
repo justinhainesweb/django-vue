@@ -7,14 +7,14 @@ Front-end side based on the progressive JavaScript framework named Vue.js.
 The authentication method implements JSON Web-Token (JWT) by default.
 Project has custom User model which combined with basic authentication.
 
-Please visit the production version here <a href="https://oleksii-velychko-django-vue.herokuapp.com">
-https://oleksii-velychko-django-vue.herokuapp.com</a> which was deployed on Heroku.
+Please visit the production version here <a href="https://alex-django-vue.herokuapp.com">
+https://alex-django-vue.herokuapp.com</a> which was deployed on Heroku.
 
 > test username: django@django.dev
 
 > test password: 0123456789
 
-![alt text](https://raw.githubusercontent.com/oleksii-velychko/django-vue/master/screenshot.png)
+![alt text](https://raw.githubusercontent.com/alex-develops/django-vue/master/screenshot.png)
 
 In order to run project to follow next steps:
 
@@ -32,6 +32,7 @@ In order to run project to follow next steps:
     python manage.py makemigrations
     python manage.py migrate
     python manage.py createsuperuser (optionally)
+    python manage.py collectstatic --noinput --link
     ```
 
 3. From ~project/spa/static/spa build client SPA:
