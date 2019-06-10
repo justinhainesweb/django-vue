@@ -162,8 +162,8 @@ if os.getenv('IS_HEROKU', 0):
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-    ALLOWED_HOSTS = ['alex-django-vue.herokuapp.com']
-    CORS_ORIGIN_WHITELIST = ('https://alex-django-vue.herokuapp.com',)
+    ALLOWED_HOSTS = ['alex-djangovue.herokuapp.com']
+    CORS_ORIGIN_WHITELIST = ('https://alex-djangovue.herokuapp.com',)
 else:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
