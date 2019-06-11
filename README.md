@@ -21,7 +21,7 @@ In order to run project to follow next steps:
 1. Clone project and install virtual environment inside root directory:
 
     ```
-    virtualenv -p python venv
+    python -m venv venv
     source venv/bin/activate
     pip install -r requirements.txt
     ```
