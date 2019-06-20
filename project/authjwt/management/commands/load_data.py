@@ -39,6 +39,7 @@ class Command(BaseCommand):
         for i in range(0, number_of_users):
             user = User.objects.create_user(
                 email=f'django' + (str(i) if i > 0 else '') + '@django.dev',  # django[N]@django.dev
+                phone=f'+380' + str('0' * (9 - len(str(i)))) + str(i),
                 password='12345678'
             )
 

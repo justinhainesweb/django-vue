@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import RegexValidator
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
@@ -7,6 +8,9 @@ from .managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     """ AbstractBaseUser implementing a fully featured User model with admin-compliant permissions. """
+
+    phone_regex = RegexValidator(regex=r'^\+380((\d){9})$', message="Ukraine phone number like '+380111111111'")
+    phone = models.CharField(_('phone number'), validators=[phone_regex], max_length=13, unique=True, default=None)
 
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
@@ -20,6 +24,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # That is used as the unique identifier. The field must be unique.
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['phone']
 
     class Meta:
         verbose_name = _('user')
