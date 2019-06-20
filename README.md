@@ -12,7 +12,7 @@ https://alex-djangovue.herokuapp.com</a> which was deployed on Heroku.
 
 > test username: django@django.dev
 
-> test password: 0123456789
+> test password: 12345678
 
 ![alt text](https://raw.githubusercontent.com/oleksii-velychko/django-vue/master/screenshot.png)
 
