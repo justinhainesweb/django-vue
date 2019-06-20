@@ -235,6 +235,10 @@ a, a:hover, a:focus {
       width: 186px;
     }
   }
+  ul:first-of-type {
+    max-height: 600px;
+    overflow-y: scroll;
+  }
 }
 
 #sidebar.active {
