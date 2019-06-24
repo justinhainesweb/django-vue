@@ -19,6 +19,20 @@
       autofocus
     >
 
+    <label for="phone">Enter phone number</label>
+    <input
+      v-model='credentials.phone'
+      type="tel"
+      id="phone"
+      name="phone"
+      class="form-control"
+      placeholder="Mobile phone number"
+      minlength="13"
+      maxlength="13"
+      @change="checkUsername"
+      required
+    >
+
     <label for="password">Create password</label>
     <input
       v-model='credentials.password'
@@ -54,8 +68,8 @@
       </ul>
     </p>
 
-    <div class="alert alert-warning collapse" id="emailVerifier" role="alert">
-      Email Verifier says: <strong>{{ emailVerifierAnswer }}</strong>
+    <div class="alert alert-warning collapse" id="verifier" role="alert">
+      The Verifier says: <strong>{{ verifierAnswer }}</strong>
     </div>
 
   </form>
@@ -71,10 +85,11 @@ export default {
     return {
       credentials: {
         email: '',
+        phone: '',
         password: '',
         password1: ''
       },
-      emailVerifierAnswer: '',
+      verifierAnswer: '',
       errors: []
     }
   },
@@ -109,8 +124,12 @@ export default {
     checkForm () {
       this.errors = []
 
-      if (!this.credentials.email) {
+      if (!this.validateEmail(this.credentials.email)) {
         this.errors.push("Email didn't set")
+      }
+
+      if (!this.validatePhone(this.credentials.phone)) {
+        this.errors.push("Phone didn't set. For example type +380991111111")
       }
 
       if (!this.credentials.password || !this.credentials.password1) {
@@ -137,8 +156,27 @@ export default {
         }
       }).then((response) => {
         if (response.status === 200) {
-          this.emailVerifierAnswer = response.data.result
-          $('#emailVerifier').show().delay(5000).fadeOut('slow')
+          this.verifierAnswer = response.data.result
+          $('#verifier').show().delay(5000).fadeOut('slow')
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    checkUsername: function () {
+      if (!this.validatePhone(this.credentials.phone)) {
+        return
+      }
+
+      axios.post('/auth/lookup/', {'phone': this.credentials.phone}, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+        if (response.status === 200) {
+          this.verifierAnswer = response.data.result
+          $('#verifier').show().delay(5000).fadeOut('slow')
         }
       }).catch(error => {
         console.log(error)
@@ -147,7 +185,12 @@ export default {
 
     validateEmail (email) {
       let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(String(email).toLowerCase());
+      return re.test(String(email).toLowerCase())
+    },
+
+    validatePhone (phone) {
+      let re = /^\+380((\d){9})$/
+      return re.test(String(phone).toLowerCase())
     }
   }
 }

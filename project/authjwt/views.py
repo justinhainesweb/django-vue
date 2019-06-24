@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
 from .utils import EmailVerifier
+from .validators import UserValidator
 
 
 @api_view(['GET'])
@@ -24,12 +25,18 @@ def lookup_email(request):
     Lookup the entered email
     """
     email = request.data.get('email', None)
-    result = EmailVerifier.lookup(email)
+    phone = request.data.get('phone', None)
 
-    if result.get('status', 0) == 0:
-        result = result.get('status_description', 'invalid domain')
+    if email:
+        result = EmailVerifier.lookup(email)
+        if result.get('status', 0) == 0:
+            result = result.get('status_description', 'invalid domain')
+        else:
+            result = result.get('status_description', 'valid domain')
+    elif phone:
+        result = UserValidator.check_exists_user_by_phone(phone)
     else:
-        result = result.get('status_description', 'valid domain')
+        result = 'The given arguments was empty'
 
     return Response({'result': result})
 

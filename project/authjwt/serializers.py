@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserJWT
-        fields = ('id', 'email', 'first_name', 'last_name',)
+        fields = ('id', 'email', 'phone', 'first_name', 'last_name',)
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
@@ -49,5 +49,5 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 
     class Meta:
         model = UserJWT
-        fields = ('id', 'email', 'token', 'password', )
+        fields = ('id', 'email', 'phone', 'token', 'password', )
 
