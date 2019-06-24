@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     emailComputed () {
-      return this.$store.state.authUser.email ? this.$store.state.authUser.email : 'user'
+      return this.$store.state.authUser.email
     }
   },
   /**

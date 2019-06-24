@@ -68,6 +68,7 @@ export default {
 
       const payload = this.credentials
       axios.post(this.$store.state.endpoints.obtainJWT, payload).then((response) => {
+        this.$store.commit('setAuthUser', response.data)
         this.$store.commit('updateToken', response.data.token)
         this.$parent.$options.methods.auth(response.data.token)
 
