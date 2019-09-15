@@ -167,7 +167,6 @@ if int(os.getenv('IS_PROD', 0)):
     ALLOWED_HOSTS = ['djangovue.oleksii-velychko.pro']
     CORS_ORIGIN_WHITELIST = ('http://djangovue.oleksii-velychko.pro',)
 else:
-    # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 
     SECRET_KEY = '**************************************************'
