@@ -23,7 +23,7 @@ services:
     networks:
       - nginx_proxy
 
-  djangoproject-nginx:
+  djangovue-nginx:
     container_name: djangoproject-nginx
     image: nginx
     restart: always
@@ -39,7 +39,7 @@ services:
     networks:
       - nginx_proxy
 
-  djangoproject-postgres:
+  djangovue-postgres:
     container_name: djangoproject-postgres
     restart: always
     image: postgres:latest
