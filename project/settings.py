@@ -157,8 +157,7 @@ if int(os.getenv('IS_PROD', 0)):
     DEBUG = False
     SITE_ID = 2
 
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = os.getenv('APP_DJANGO_VUE_SECRET_KEY')
+    SECRET_KEY = os.getenv('APP_DJANGO_VUE_SECRET_KEY', None)
 
     DATABASES = {
         'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
