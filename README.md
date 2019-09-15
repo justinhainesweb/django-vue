@@ -11,7 +11,7 @@ Project has custom User model which combined with basic authentication.
 
 > test password: 12345678
 
-![alt text](https://raw.githubusercontent.com/oleksii-velychko/django-vue/master/screenshot.png)
+![alt text](https://raw.githubusercontent.com/oleksiivelychko/django-vue/master/screenshot.png)
 
 In order to run project to follow next steps:
 
