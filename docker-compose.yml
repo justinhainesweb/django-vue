@@ -24,7 +24,7 @@ services:
       - nginx_proxy
 
   djangovue-nginx:
-    container_name: djangoproject-nginx
+    container_name: djangovue-nginx
     image: nginx
     restart: always
     ports:
@@ -40,7 +40,7 @@ services:
       - nginx_proxy
 
   djangovue-postgres:
-    container_name: djangoproject-postgres
+    container_name: djangovue-postgres
     restart: always
     image: postgres:latest
     volumes:
