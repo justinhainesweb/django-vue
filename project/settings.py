@@ -128,7 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 WEBPACK_LOADER = {
     'TODO-SPA': {
@@ -143,12 +143,16 @@ INTERNAL_IPS = (
 )
 
 if os.getenv('IS_HEROKU', 0):
+    INSTALLED_APPS += ['django_heroku']
 
-    import dj_database_url
+    # Activate Django-Heroku
     import django_heroku
-
-    # Activate Django-Heroku.
     django_heroku.settings(locals())
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+if os.getenv('IS_PROD', 0):
+    import dj_database_url
 
     DEBUG = False
     SITE_ID = 2
@@ -160,10 +164,8 @@ if os.getenv('IS_HEROKU', 0):
         'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
     }
 
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-    ALLOWED_HOSTS = ['alex-djangovue.herokuapp.com']
-    CORS_ORIGIN_WHITELIST = ('https://alex-djangovue.herokuapp.com',)
+    ALLOWED_HOSTS = ['djangovue.oleksii-velychko.pro']
+    CORS_ORIGIN_WHITELIST = ('http://djangovue.oleksii-velychko.pro',)
 else:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
@@ -177,8 +179,6 @@ else:
             'NAME': os.path.join(BASE_DIR, 'spa.sqlite3'),
         }
     }
-
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
     ALLOWED_HOSTS = ['127.0.0.1']
     CORS_ORIGIN_WHITELIST = ('http://127.0.0.1', )

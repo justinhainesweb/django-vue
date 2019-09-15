@@ -7,9 +7,6 @@ Front-end side based on the progressive JavaScript framework named Vue.js.
 The authentication method implements JSON Web-Token (JWT) by default.
 Project has custom User model which combined with basic authentication.
 
-Please visit the production version here <a href="https://alex-djangovue.herokuapp.com">
-https://alex-djangovue.herokuapp.com</a> which was deployed on Heroku.
-
 > test username: django@django.dev
 
 > test password: 12345678

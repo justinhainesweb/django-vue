@@ -1,3 +1,3 @@
-release: python ./manage.py makemigrations && python ./manage.py migrate
+release: chmod u+x release.sh && ./release.sh
 web: gunicorn project.wsgi --log-file -
 
