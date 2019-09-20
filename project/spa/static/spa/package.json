@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "build": "node_modules/.bin/webpack --config build/webpack.dev.conf.js --progress --colors --watch",
-    "prod": "node_modules/.bin/webpack --config build/webpack.prod.conf.js --progress"
+    "prod": "node_modules/.bin/webpack --config build/webpack.prod.conf.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
