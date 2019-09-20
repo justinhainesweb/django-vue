@@ -7,3 +7,4 @@ package-lock.json
 heroku_env.png
 app.env
 node_modules
+static

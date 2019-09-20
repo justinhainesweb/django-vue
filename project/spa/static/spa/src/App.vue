@@ -12,7 +12,7 @@ export default {
     const jwtToken = this.$store.state.jwt
     if (jwtToken) {
       this.auth(jwtToken, true)
-    } else {
+    } else if (this.$router.currentRoute.name !== 'main') {
       // redirect to Login page
       this.$router.replace({ name: 'main' })
     }
