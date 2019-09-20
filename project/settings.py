@@ -142,15 +142,6 @@ INTERNAL_IPS = (
     '127.0.0.1',
 )
 
-if int(os.getenv('IS_HEROKU', 0)):
-    INSTALLED_APPS += ['django_heroku']
-
-    # Activate Django-Heroku
-    import django_heroku
-    django_heroku.settings(locals())
-
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 if int(os.getenv('IS_PROD', 0)):
     import dj_database_url
 
