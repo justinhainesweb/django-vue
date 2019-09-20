@@ -25,6 +25,11 @@ class EmailVerifier:
         :param email:
         :return:
         """
+        if not EMAIL_VERIFIER_API_KEY:
+            return {
+                'status': 0,
+                'status_description': 'EMAIL_VERIFIER_API_KEY is empty'
+            }
 
         url = f'https://app.verify-email.org/api/v1/{EMAIL_VERIFIER_API_KEY}/verify/{email}'
 
