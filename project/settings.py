@@ -133,7 +133,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 WEBPACK_LOADER = {
     'TODO-SPA': {
         'BUNDLE_DIR_NAME': '',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'STATS_FILE': os.path.join(STATIC_ROOT, 'spa/webpack-stats.json'),
         'IGNORE': ['.+\.hot-update.json', '.+\.hot-update.js', '.+\.map']
     },
 }
