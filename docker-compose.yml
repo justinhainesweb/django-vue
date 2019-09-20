@@ -12,7 +12,7 @@ services:
     env_file: ./docker/django/app.env
     volumes:
       - .:/data/django
-      - ./public:/data/public
+      - ./static:/data/static
       - shared_socket:/var/run/shared_socket
     command: >
       sh -c "/usr/local/bin/gunicorn --reload --workers 3 \
@@ -32,7 +32,7 @@ services:
     environment:
       - VIRTUAL_HOST=djangovue.oleksii-velychko.pro
     volumes:
-      - ./public:/data/public
+      - ./static:/data/static
       - ./docker/nginx/logs:/data/logs
       - ./docker/nginx/virtualhost.conf:/etc/nginx/conf.d/default.conf
       - shared_socket:/var/run/shared_socket
