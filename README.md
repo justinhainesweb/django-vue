@@ -56,4 +56,4 @@ Output >>
 
 Run application by `python manage.py runserver 127.0.0.1:9000`
 
-Also, for using the email verifier add EMAIL_VERIFIER_API_KEY variable to environment.
+In order to use the email verifier <a href="verify-email.org">get key</a> and add EMAIL_VERIFIER_API_KEY variable to environment
