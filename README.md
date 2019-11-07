@@ -11,8 +11,6 @@ Project has custom User model which combined with basic authentication.
 
 > test password: 12345678
 
-![alt text](https://raw.githubusercontent.com/oleksiivelychko/django-vue/master/screenshot.png)
-
 In order to run project to follow next steps:
 
 1. Clone project and install virtual environment inside root directory:
@@ -42,16 +40,5 @@ In order to run project to follow next steps:
 
    ```
    python manage.py load_data
-   ```
-
-Output >>
-> Cleaning database...<br>
-> Got number_of_users: 5<br>
-> Got max_projects_per_user: 5<br>
-> Got max_tasks_per_user: 5<br>
-> Got max_likes_per_user: 5<br>
-> Wait...<br>
-> Done. Created 5 users, 25 projects, 125 tasks.<br>
-
 
 Run application by `python manage.py runserver 127.0.0.1:9000`
